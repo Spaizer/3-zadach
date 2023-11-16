@@ -1,0 +1,45 @@
+import sys
+
+from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QPushButton
+from random import randint
+
+
+class MyWidget(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.initUI()
+
+    def initUI(self):
+        self.setGeometry(300, 300, 500, 300)
+        self.setWindowTitle('Фокус со словами')
+        self.setFixedSize(400, 450)
+        self.okr = QLabel('', self)
+        self.okr.move(100, 100)
+        self.okr.resize(150, 150)
+        self.okr.setStyleSheet("border: 6px solid yellow; border-radius: 75px;")
+        self.pushokr = QPushButton('Нажмите', self)
+        self.pushokr.resize(100, 100)
+        self.pushokr.move(150, 350)
+        self.pushokr.clicked.connect(self.okrush)
+
+    def okrush(self):
+        x = randint(50, 350)
+        y = randint(50, 400)
+        self.okr.move(x, y)
+        razmer = randint(20, 150)
+        self.okr.resize(razmer, razmer)
+        if razmer >= 150:
+            self.okr.setStyleSheet("border: 6px solid yellow; border-radius: 75px;")
+        elif razmer >= 100:
+            self.okr.setStyleSheet("border: 6px solid yellow; border-radius: 50px;")
+        elif razmer >= 50:
+            self.okr.setStyleSheet("border: 6px solid yellow; border-radius: 25px;")
+        elif razmer >= 20:
+            self.okr.setStyleSheet("border: 6px solid yellow; border-radius: 10px;")
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = MyWidget()
+    ex.show()
+    sys.exit(app.exec_())
